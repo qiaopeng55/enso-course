@@ -1,0 +1,1 @@
+{ "mcpServers": { "board": { "command": "node", "args": ["board-mcp.mjs"] } } }
