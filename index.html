@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Todo</title>
+</head>
+<body>
+  <h1>Todo</h1>
+  <form id="add">
+    <input id="text" placeholder="what needs doing?" autofocus>
+    <button>add</button>
+  </form>
+  <ul id="list"></ul>
+
+<script>
+  // A vibe-coded todo: one prompt, the model's default. localStorage, works by opening the file.
+  const list = document.getElementById("list");
+  let items = JSON.parse(localStorage.getItem("todo") || "[]");
+
+  function save() { localStorage.setItem("todo", JSON.stringify(items)); }
+  function render() {
+    list.innerHTML = "";
+    items.forEach((it, i) => {
+      const li = document.createElement("li");
+      li.textContent = it;
+      const del = document.createElement("button");
+      del.textContent = "x";
+      del.onclick = () => { items.splice(i, 1); save(); render(); };
+      li.appendChild(del);
+      list.appendChild(li);
+    });
+  }
+
+  document.getElementById("add").onsubmit = (e) => {
+    e.preventDefault();
+    const t = document.getElementById("text");
+    if (t.value.trim()) { items.push(t.value.trim()); t.value = ""; save(); render(); }
+  };
+  render();
+</script>
+</body>
+</html>
