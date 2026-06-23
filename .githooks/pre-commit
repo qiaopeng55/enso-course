@@ -1,3 +1,4 @@
 #!/bin/sh
-# the commit floor, part 1: mechanical facts
+# the commit floor: mechanical facts + behavior
 node gate.mjs || exit 1
+node --test || exit 1
